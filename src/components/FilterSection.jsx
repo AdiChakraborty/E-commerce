@@ -5,14 +5,14 @@ const FilterSection = ({
   search,
   setSearch,
   pricerange,
-  setPricerange,
+  setPricerange,//
   category,
   setCategory,
    handleCategoryChange
 }) => {
   const { onlyCategory } = getData();
   return (
-    <div className="bg-gray-100 mt-10 p-4 rounded-md h-max ">
+    <div className="bg-gray-100 mt-10 p-4 rounded-md h-max  hidden md:block">
       <input
         type="text"
         placeholder="Search..."
@@ -54,12 +54,12 @@ const FilterSection = ({
           max={5000}
           value={pricerange[1]}
           onChange={(e) =>
-            setPricerange([pricerange[0], Number(e.target.value)])
+            setPricerange([pricerange[0], Number(e.target.value)])//
           }
         />
       </div>
       <button className=" bg-red-500 text-white rounded-md px-3 py-1 mt-5 cursor-pointer"
-      onClick={()=>{setSearch(''); setCategory('ALL');setPricerange([0,5000])}}
+      onClick={()=>{setSearch(''); setCategory('ALL');setPricerange([0,5000])}}//
       >
         Reset Filter
       </button>

@@ -9,12 +9,15 @@ import Navbar from './components/Navbar'
 import axios from 'axios'
 import Footer from './components/Footer'
 import SingleProduct from './pages/SingleProduct'
+import CategoryProduct from './pages/CategoryProduct'
+import { useCart } from './context/CartContext'
 
 
 const App = () => {
 
   const [location,setLocation] = useState()
   const [openDropdown,setOpenDropdown] = useState (false)
+  const {cartItem,setCartItem} = useCart()
 
   const  getLocation = async ()=>{
     navigator.geolocation.getCurrentPosition(async pos => {
@@ -29,7 +32,7 @@ const App = () => {
         const exactLocation = location.data.address
         setLocation(exactLocation)
         setOpenDropdown(false)
-        // console.log(exactLocation);
+        console.log(exactLocation);
         
         
       } catch (error) {
@@ -44,6 +47,21 @@ const App = () => {
     getLocation()
   },[])
 
+  // Load cart from local storage on initital render
+
+   useEffect(()=>{
+    const storedCart = localStorage.getItem('cartItem')
+    if(storedCart){
+      setCartItem(JSON.parse(storedCart))
+    }
+   },[])
+
+   //save cart to local storage whenever it changes
+
+   useEffect(()=>{
+    if(cartItem?.length) localStorage.setItem('cartItem',JSON.stringify(cartItem))
+   },[cartItem])
+
   return (
     <BrowserRouter>
     <Navbar location={location} getLocation={getLocation} openDropdown={openDropdown} setOpenDropdown={setOpenDropdown} />
@@ -51,9 +69,10 @@ const App = () => {
         <Route path='/' element={<Home/>}> </Route>
         <Route path='/products' element={<Products/>}> </Route>
         <Route path='/products/:id' element={<SingleProduct/>}> </Route>
+         <Route path='/category/:category' element={<CategoryProduct />}></Route>
         <Route path='/about' element={<About/>}> </Route>
         <Route path='/contact' element={<Contact/>}> </Route>
-        <Route path='/cart' element={<Cart/>}> </Route>
+        <Route path='/cart' element={<Cart location={location} getLocation={getLocation}/>}> </Route>
       </Routes> 
       <Footer/>
     </BrowserRouter>
