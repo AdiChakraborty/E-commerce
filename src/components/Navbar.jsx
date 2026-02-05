@@ -37,7 +37,7 @@ const Navbar = ({location, getLocation,openDropdown,setOpenDropdown}) => {
         <div className="flex gap-7 items-center">
           <Link to={"/"}>
             <h1 className="font-bold text-3xl">
-              <span className="text-red-500 font-sarif">X</span>yz
+              <span className="text-red-500 font-sarif">Z</span>aptro
             </h1>
           </Link>
           <div className="md:flex gap-1 cursor-pointer text-gray-700 items-center hidden">
