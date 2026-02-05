@@ -6,18 +6,18 @@ export const CartContext = createContext(null);
 export const CartProvider = ({ children }) => {
   const [cartItem, setCartItem] = useState([]);
 
-  const addToCart = (product) => {
+  const addToCart = (product, quantity=1) => {
     const itemInCart = cartItem.find((item) => item.id === product.id);
     if (itemInCart) {
       // Increase quantity if already in cart
       const updatedCart = cartItem.map((item) =>
-        item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item
       );
       setCartItem(updatedCart);
       toast.success("Product quantity increased!");
     } else {
       //Add new ietm with quantity 1
-      setCartItem([...cartItem, { ...product, quantity: 1 }]);
+      setCartItem([...cartItem, { ...product, quantity }]);
       toast.success("Product is added to cart!");
     }
   };
