@@ -15,7 +15,7 @@ const Cart = ({location,getLocation }) => {
   // console.log(user)
   const navigate = useNavigate()
 
-  const totalPrice = cartItem.reduce((total,item)=> total + item.price,0)
+ const totalPrice = cartItem.reduce((total,item)=> total + item.price * item.quantity,0)
 
 
   return (
@@ -40,7 +40,7 @@ const Cart = ({location,getLocation }) => {
                       <div>
                         <h1 className="md:w-[300px] line-clamp-2">{item.title}</h1>
                         <p className=" text-red-400 font-semibold text-lg">
-                          ${item.price}
+                          ${item.price * item.quantity}
                         </p>
                       </div>
                     </div>
