@@ -9,6 +9,7 @@ import { useCart } from "../context/CartContext";
 const SingleProducts = () => {
   const params = useParams();
   const [SingleProduct, setSingleProduct] = useState("");
+    const [qunatity,setQuantity] = useState(1)
   console.log(params);
   const { addToCart } = useCart();
 
@@ -87,15 +88,17 @@ const SingleProducts = () => {
                 <input
                   type="number"
                   min={1}
-                  value={1}
+                  max={10}
+                  value={qunatity}
                   className="w-20 border cursor-pointer border-gray-300 rounded-lg px-3
                    py-1 focus:outline-none focus:ring-2 foucs:ring-red-500"
+                    onChange={(e)=>setQuantity(Number(e.target.value))}
                 />
               </div>
 
               <div className="flex gap-4 mt-4">
                 <button
-                  onClick={() => addToCart(SingleProduct)}
+                  onClick={() => addToCart(SingleProduct,qunatity)}
                   className="px-6 flex gap-2 py-2 text-lg bg-red-500 text-white rounded-md"
                 >
                   <IoCartOutline className="w-6 h-6" /> Add to Cart
